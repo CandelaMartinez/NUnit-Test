@@ -52,5 +52,7 @@ namespace Loans.Test
             Assert.That(a, Is.EqualTo(0.33).Within(10).Percent);
 
         }
+
+
     }
 }
