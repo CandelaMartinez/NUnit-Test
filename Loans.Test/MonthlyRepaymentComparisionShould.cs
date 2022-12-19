@@ -3,10 +3,10 @@ using NUnit.Framework;
 
 namespace Loans.Test
 {
+    [ProductComparison]
     public class MonthlyRepaymentComparisionShould
     {
         [Test]
-        [Category("Product Comparision")]
         public void RespectValueEquality()
         {
             var a = new MonthlyRepaymentComparison("a", 42.42m, 22.22m);

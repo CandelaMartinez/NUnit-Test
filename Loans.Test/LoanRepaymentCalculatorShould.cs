@@ -51,5 +51,55 @@ namespace Loans.Test
                                     interestRate, new LoanTerm(termInYears));
 
         }
+
+        [Test]
+        [Ignore("Pending check for decimal formatting")]
+        [TestCaseSource(typeof(MonthlyRepaymentCsvData), "GetTestCases", new object[] { "Data.csv"})]
+        public void CalculateCorrectMonthlyRepayment_Cvs(decimal principal,
+                                                   decimal interestRate,
+                                                   int termInYears,
+                                                   decimal expectedMonthlyPayment)
+        {
+            var sut = new LoanRepaymentCalculator();
+
+            var monthlyPayment = sut.CalculateMonthlyRepayment(
+                                    new LoanAmount("USD", principal),
+                                    interestRate, 
+                                    new LoanTerm(termInYears));
+
+            Assert.That(monthlyPayment, Is.EqualTo(expectedMonthlyPayment));
+        }
+
+        [Test]
+        [Sequential]
+        public void CalculateCorrectMonthlyRepayment_Combinatorial(
+            [Values(100_000, 200_000, 500_000)] decimal principal,
+            [Values(6.5,10,20)] decimal interestRate,
+            [Values(10,20,30)] int termInYears
+            )
+        {
+            var sut = new LoanRepaymentCalculator();
+
+            var monthlyPayment = sut.CalculateMonthlyRepayment(
+                new LoanAmount("USD", principal),
+                interestRate,
+                new LoanTerm(termInYears));
+        }
+
+        [Test]
+        public void CalculateCorrectMonthlyRepayment_Range(
+          [Range(50_000, 1_000_000, 50_000)] decimal principal,
+          [Range(0.5, 20.00, 0.5)] decimal interestRate,
+          [Values(10, 20, 30)] int termInYears
+          )
+        {
+            var sut = new LoanRepaymentCalculator();
+
+            var monthlyPayment = sut.CalculateMonthlyRepayment(
+                new LoanAmount("USD", principal),
+                interestRate,
+                new LoanTerm(termInYears));
+        }
+
     }
 }

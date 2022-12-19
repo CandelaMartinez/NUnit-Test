@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace Loans.Test
 {
     [TestFixture]
+    [ProductComparison]
     public class ProductComparerShould
     {
         private List<LoanProduct> products;
@@ -86,12 +87,17 @@ namespace Loans.Test
                                         .Property("MonthlyRepayment").GreaterThan(0)
                                         );
 
-            Assert.That(comparisons, Has.Exactly(1)
-                                    .Matches<MonthlyRepaymentComparison>(
-                                        mrc => mrc.ProductName == "a"
-                                            && mrc.InterestRate == 1 
-                                            && mrc.MonthlyRepayment > 0
-                ));
+            //Assert.That(comparisons, Has.Exactly(1)
+            //                        .Matches<MonthlyRepaymentComparison>(
+            //                            mrc => mrc.ProductName == "a"
+            //                                && mrc.InterestRate == 1 
+            //                                && mrc.MonthlyRepayment > 0
+            //    ));
+
+            Assert.That(comparisons,
+                        Has.Exactly(1)
+                        .Matches(new MonthlyRepaymentGreaterThanZeroConstraint("a",1))
+                        );
         }
 
     }
