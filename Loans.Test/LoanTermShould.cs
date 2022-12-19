@@ -8,6 +8,7 @@ namespace Loans.Test
     public class LoanTermShould
     {
         [Test]
+        [Ignore("Reason why I am ignoring this test.")]
         public void ReturnTermInMonths()
         {
             //system under test
