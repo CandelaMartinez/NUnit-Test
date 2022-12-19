@@ -1,5 +1,6 @@
 ﻿using Loans.Domain.Applications;
 using NUnit.Framework;
+using System;
 
 namespace Loans.Test
 {
@@ -53,6 +54,22 @@ namespace Loans.Test
 
         }
 
+        [Test]
+        public void NotAllowZeroYears()
+        {
+            Assert.That(() => new LoanTerm(0),
+                                Throws.TypeOf<ArgumentOutOfRangeException>());
+
+            Assert.That(() => new LoanTerm(0),
+                               Throws.TypeOf<ArgumentOutOfRangeException>()
+                                        .With
+                                        .Matches<ArgumentOutOfRangeException>(
+                                            ex => ex.ParamName == "years"
+                                   )
+                               );
+
+
+        }
 
     }
 }
