@@ -1,5 +1,4 @@
-﻿using Loans.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Loans.Domain.Applications
